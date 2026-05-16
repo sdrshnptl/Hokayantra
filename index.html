@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="mr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="होकायंत्र दिशादर्शक - आपल्या ब्राउझरमधील विनामूल्य कंपास अॅप. रिअल-टाइम दिशा, GPS स्थानांक, आणि मराठी-अंग्रेजी समर्थन."
+    />
+    <meta 
+      name="keywords" 
+      content="होकायंत्र, दिशादर्शक, कंपास, compass app, GPS, direction finder, मराठी, मैग्नेटिक कंपास, ब्राउझर कंपास, ऑनलाइन कंपास, नेविगेशन, दिशा खोजक, hokayantra.com"
+    />
+    <meta name="author" content="sdrshnptl" />
+    <meta name="theme-color" content="#ff9933" />
+    <meta name="color-scheme" content="light dark" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hokayantra.com/" />
+    <meta property="og:title" content="होकायंत्र दिशादर्शक - ब्राउझर कंपास अॅप" />
+    <meta property="og:description" content="आपल्या स्मार्टफोनमधील व्हर्चुअल कंपास. GPS ट्रॅकिंग, मराठी भाषा समर्थन, आणि सुंदर यूजर इंटरफेस." />
+    <meta property="og:site_name" content="होकायंत्र दिशादर्शक" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://hokayantra.com/" />
+    <meta property="twitter:title" content="होकायंत्र दिशादर्शक" />
+    <meta property="twitter:description" content="ब्राउझरमधील दिशादर्शक अॅप - GPS, कंपास, आणि नेविगेशन." />
+    <meta property="twitter:creator" content="@sdrshnptl" />
+    
+    <!-- Additional SEO -->
+    <link rel="canonical" href="https://hokayantra.com/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="language" content="Marathi, English, Hindi" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <title>होकायंत्र दिशादर्शक | ब्राउझर कंपास अॅप</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
+
+    <main class="app" role="main">
+      <header class="app-header">
+        <p class="eyebrow" data-i18n="eyebrow">होकायंत्र</p>
+        <h1 data-i18n="title">दिशादर्शक</h1>
+        <p class="subtext" data-i18n="subtext">
+          तुमच्या ब्राउझरमधील थेट चुंबकीय दिशा. सेन्सर असलेल्या मोबाईलवर उत्तम.
+        </p>
+      </header>
+
+      <section class="compass-wrap" aria-label="Compass display">
+        <div class="heading-readout" id="headingReadout">0°</div>
+
+        <div class="compass" aria-hidden="true">
+          <div class="compass-ring"></div>
+          <div class="ticks"></div>
+
+          <div class="labels">
+            <span class="label n" id="labelN">उत्तर</span>
+            <span class="label ne" id="labelNE">ईशान्य</span>
+            <span class="label e" id="labelE">पूर्व</span>
+            <span class="label se" id="labelSE">आग्नेय</span>
+            <span class="label s" id="labelS">दक्षिण</span>
+            <span class="label sw" id="labelSW">नैऋत्य</span>
+            <span class="label w" id="labelW">पश्चिम</span>
+            <span class="label nw" id="labelNW">वायव्य</span>
+          </div>
+
+          <div class="needle" id="needle">
+            <span class="needle-top"></span>
+            <span class="needle-bottom"></span>
+            <span class="needle-center"></span>
+          </div>
+
+          <div class="dial" id="dial"></div>
+        </div>
+
+        <p class="cardinal" id="cardinalReadout">उत्तर</p>
+      </section>
+
+      <section class="controls">
+        <button id="permissionBtn" class="btn" type="button">
+          दिशादर्शक सुरू करा
+        </button>
+        <p class="status" id="statusText">सेन्सर परवानगीची प्रतीक्षा.</p>
+      </section>
+
+      <section class="info">
+        <h2 data-i18n="tipsTitle">टीप</h2>
+        <ul>
+          <li data-i18n="tip1">अधिक अचूक वाचनासाठी फोन सपाट धरा.</li>
+          <li data-i18n="tip2">चुंबक किंवा धातूच्या वस्तूं पासून थोडे दूर रहा.</li>
+          <li data-i18n="tip3">दिशा अस्थिर असल्यास फोन 8 आकारात हलवा.</li>
+          <li>
+            <span data-i18n="tipReadQ">दिशादर्शक कसा वाचायचा?</span>
+            <span id="tipReadoutAnswer">सध्याचे वाचन: ०° उत्तर</span>
+          </li>
+          <li>
+            <span id="tipGpsAnswer">GPS मिळवत आहे...</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="language-switch" aria-label="Language switch">
+        <button id="langMr" class="lang-btn active" type="button" data-lang="mr">मराठी</button>
+        <button id="langEn" class="lang-btn" type="button" data-lang="en">English</button>
+      </section>
+
+      <footer class="app-footer">
+        <a href="https://www.linkedin.com/in/sdrshnptl/" target="_blank" rel="noopener noreferrer">@sdrshnptl</a>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
