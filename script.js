@@ -173,8 +173,10 @@ function updateTipReadoutAnswer() {
 }
 
 function updateGpsTipAnswer() {
+  const unavailable = getText("valueUnavailable");
+
   if (!navigator.geolocation) {
-    tipGpsAnswer.textContent = getText("gpsNotSupported");
+    tipGpsAnswer.textContent = `${getText("latitude")}: ${unavailable}, ${getText("longitude")}: ${unavailable}, ${getText("elevation")}: ${unavailable} (${getText("gpsNotSupported")})`;
     return;
   }
 
@@ -184,13 +186,13 @@ function updateGpsTipAnswer() {
     const hasElevation = typeof gpsCoords.elevation === "number";
     const elevationText = hasElevation
       ? `${formatElevation(gpsCoords.elevation)} ${getText("elevationUnit")}`
-      : getText("valueUnavailable");
+      : unavailable;
 
     tipGpsAnswer.textContent = `${getText("latitude")}: ${formatCoordinate(gpsCoords.lat)}° ${latHem}, ${getText("longitude")}: ${formatCoordinate(gpsCoords.lon)}° ${lonHem}, ${getText("elevation")}: ${elevationText}`;
     return;
   }
 
-  tipGpsAnswer.textContent = getText(gpsErrorKey || "gpsPending");
+  tipGpsAnswer.textContent = `${getText("latitude")}: ${unavailable}, ${getText("longitude")}: ${unavailable}, ${getText("elevation")}: ${unavailable} (${getText(gpsErrorKey || "gpsPending")})`;
 }
 
 function startGpsTracking() {
