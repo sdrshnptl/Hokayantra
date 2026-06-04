@@ -31,6 +31,9 @@ const translations = {
     tipGpsPrefix: "सध्याचे GPS:",
     latitude: "अक्षांश",
     longitude: "रेखांश",
+    elevation: "उंची",
+    elevationUnit: "मीटर",
+    valueUnavailable: "उपलब्ध नाही",
     btnEnable: "दिशादर्शक सुरू करा",
     btnEnabled: "दिशादर्शक सुरू आहे",
     btnDesktop: "डेस्कटॉप मोड (Arrow Keys)",
@@ -64,6 +67,9 @@ const translations = {
     tipGpsPrefix: "Current GPS:",
     latitude: "Latitude",
     longitude: "Longitude",
+    elevation: "Elevation",
+    elevationUnit: "m",
+    valueUnavailable: "N/A",
     btnEnable: "Enable Compass",
     btnEnabled: "Compass Enabled",
     btnDesktop: "Desktop Mode (Use Arrow Keys)",
@@ -156,6 +162,12 @@ function formatCoordinate(value) {
     : abs.toFixed(2);
 }
 
+function formatElevation(value) {
+  return currentLanguage === "mr"
+    ? value.toLocaleString("mr-IN-u-nu-deva", { maximumFractionDigits: 1 })
+    : value.toFixed(1);
+}
+
 function updateTipReadoutAnswer() {
   tipReadoutAnswer.textContent = `${getText("tipReadPrefix")} ${formatHeadingNumber(currentHeading)}° ${getCardinal(currentHeading)}`;
 }
@@ -169,7 +181,12 @@ function updateGpsTipAnswer() {
   if (gpsCoords) {
     const latHem = currentLanguage === "mr" ? (gpsCoords.lat >= 0 ? "उ" : "द") : (gpsCoords.lat >= 0 ? "N" : "S");
     const lonHem = currentLanguage === "mr" ? (gpsCoords.lon >= 0 ? "पू" : "प") : (gpsCoords.lon >= 0 ? "E" : "W");
-    tipGpsAnswer.textContent = `${getText("latitude")}: ${formatCoordinate(gpsCoords.lat)}° ${latHem}, ${getText("longitude")}: ${formatCoordinate(gpsCoords.lon)}° ${lonHem}`;
+    const hasElevation = typeof gpsCoords.elevation === "number";
+    const elevationText = hasElevation
+      ? `${formatElevation(gpsCoords.elevation)} ${getText("elevationUnit")}`
+      : getText("valueUnavailable");
+
+    tipGpsAnswer.textContent = `${getText("latitude")}: ${formatCoordinate(gpsCoords.lat)}° ${latHem}, ${getText("longitude")}: ${formatCoordinate(gpsCoords.lon)}° ${lonHem}, ${getText("elevation")}: ${elevationText}`;
     return;
   }
 
@@ -186,7 +203,8 @@ function startGpsTracking() {
     (position) => {
       gpsCoords = {
         lat: position.coords.latitude,
-        lon: position.coords.longitude
+        lon: position.coords.longitude,
+        elevation: position.coords.altitude
       };
       gpsErrorKey = null;
       updateGpsTipAnswer();
